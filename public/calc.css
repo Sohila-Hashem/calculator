@@ -1,0 +1,119 @@
+:root {
+    --result-interface-day: rgb(95, 158, 160);
+    --result-interface-dark: rgb(50, 83, 84);
+    --core-container-day: rgb(240, 248, 255);
+    --core-container-dark: rgb(221, 237, 233);
+    --digits-text: rgb(245, 255, 250);
+    --result-text: rgb(245, 255, 250);;
+    --main-digits-day: rgb(95, 158, 160);
+    --main-digits-dark: rgb(50, 83, 84);
+    --primary-digits-day: rgb(50, 83, 84);
+    --primary-digits-dark: rgb(22, 36, 37);
+    --delete-button: rgb(255, 99, 71);
+    --main-background-day: rgb(221, 237, 233);
+    --main-background-dark: rgb(36 48 45);;
+}
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    min-height: 100vh;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: var(--main-background-day);
+    font-family: 'Rubik', sans-serif;
+}
+
+main {
+    width: 380px;
+    padding: 15px;
+    display: grid;
+    grid-template-rows: 1fr 4fr;
+    grid-template-columns: 1fr;
+}
+
+#result-interface {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0 35px;
+    font-size: 18px;
+    border-radius: 15px 15px 0 0;
+    grid-column: span 1;
+    background-color: var(--result-interface-day);
+    -webkit-border-radius: 15px 15px 0 0;
+    -moz-border-radius: 15px 15px 0 0;
+    -ms-border-radius: 15px 15px 0 0;
+    -o-border-radius: 15px 15px 0 0;
+}
+
+#result-interface p {
+    color: var(--result-text);
+}
+
+#core-container {
+    display: grid;
+    grid-column: span 1;
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(12,1fr);
+    gap: 10px;
+    background-color: var(--core-container-day);
+    padding:  35px 15px;
+    border-radius: 0 0 15px 15px;
+    -webkit-border-radius: 0 0 15px 15px;
+    -moz-border-radius: 0 0 15px 15px;
+    -ms-border-radius: 0 0 15px 15px;
+    -o-border-radius: 0 0 15px 15px;
+}
+
+#core-container div {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    grid-column: span 12;
+}
+
+#core-container div p {
+    cursor: pointer;
+    width: 50px;
+    background-color: var(--main-digits-day);
+    padding: 17px;
+    border-radius: 50%;
+    color: var(--digits-text);
+    text-align: center;
+}
+
+#core-container #C, #core-container #equal {
+    background-color: var(--primary-digits-day);
+}
+
+#core-container #delete {
+    background-color: var(--delete-button);
+}
+
+@media screen and (prefers-color-scheme: dark) {
+    body {
+        background-color: var(--main-background-dark);
+    }
+
+    #result-interface {
+        background-color: var(--result-interface-dark);
+    }
+
+    #core-container {
+        background-color: var(--core-container-dark);
+    }
+
+    #core-container div p {
+        background-color: var(--primary-digits-dark);
+    }
+}
