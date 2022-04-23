@@ -12,6 +12,8 @@
     --delete-button: rgb(255, 99, 71);
     --main-background-day: rgb(221, 237, 233);
     --main-background-dark: rgb(36 48 45);;
+    --h1-text-day: rgb(50, 83, 84);
+    --h1-text-dark: rgb(221, 237, 233);
 }
 
 * {
@@ -25,10 +27,12 @@ html {
 }
 
 body {
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    flex-direction: column;
+    min-width: 100%;
     background-color: var(--main-background-day);
     font-family: 'Rubik', sans-serif;
 }
@@ -39,6 +43,10 @@ main {
     display: grid;
     grid-template-rows: 1fr 4fr;
     grid-template-columns: 1fr;
+}
+
+h1 {
+    color: var(--h1-text-day);
 }
 
 #result-interface {
@@ -74,7 +82,7 @@ main {
     grid-column: span 1;
     grid-template-rows: repeat(3, 1fr);
     grid-template-columns: repeat(12,1fr);
-    gap: 10px;
+    gap: 15px;
     background-color: var(--core-container-day);
     padding:  35px 15px;
     border-radius: 0 0 15px 15px;
@@ -93,7 +101,7 @@ main {
 
 #core-container div p {
     cursor: pointer;
-    width: 50px;
+    width: 55px;
     background-color: var(--main-digits-day);
     padding: 17px;
     border-radius: 50%;
@@ -112,6 +120,10 @@ main {
 @media screen and (prefers-color-scheme: dark) {
     body {
         background-color: var(--main-background-dark);
+    }
+
+    h1 {
+        color: var(--h1-text-dark);
     }
 
     #result-interface {
