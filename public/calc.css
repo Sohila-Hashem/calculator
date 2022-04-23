@@ -56,7 +56,16 @@ main {
     -o-border-radius: 15px 15px 0 0;
 }
 
-#result-interface p {
+#result-interface input {
+    background-color: transparent;
+    outline: none;
+    border: 0px;
+    caret-color: var(--result-text);
+    font-size: 18px;
+    color: var(--result-text);
+}
+
+#result-interface input::placeholder {
     color: var(--result-text);
 }
 
