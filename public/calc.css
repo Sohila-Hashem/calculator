@@ -135,6 +135,10 @@ h1 {
     }
 
     #core-container div p {
+        background-color: var(--main-digits-dark);
+    }
+
+    #core-container #C, #core-container #equal {
         background-color: var(--primary-digits-dark);
     }
 }
