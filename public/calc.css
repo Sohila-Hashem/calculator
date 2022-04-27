@@ -11,7 +11,7 @@
     --active-equal-day: rgba(255, 99, 71, 0.8);
     /*---------------------------------------------------------*/
     /*dark theme color palette*/
-    --main-background-dark: rgb(36 48 45);
+    --main-background-dark: rgb(22, 36, 37);
     --h1-text-dark: rgb(221, 237, 233);
     --result-interface-dark: rgb(50, 83, 84);
     --core-container-dark: rgb(221, 237, 233);
@@ -132,7 +132,6 @@ h1 {
 }
 
 #core-container div button {
-    cursor: pointer;
     outline: none;
     border: 0px;
     width: 55px;
@@ -147,8 +146,8 @@ h1 {
 
 #core-container div button:active {
     background-color: var(--active-main-digits-day);
-    animation: pressingEffect 0.3s linear;
-    -webkit-animation: pressingEffect 0.3s linear;
+    animation: pressingEffect 0.2s linear;
+    -webkit-animation: pressingEffect 0.2s linear;
 }
 
 #core-container #C, #core-container #delete, #core-container #equal {
