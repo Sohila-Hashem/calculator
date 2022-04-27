@@ -2,17 +2,16 @@
     /*light theme color palette*/
     --main-background-day: rgb(221, 237, 233);
     --h1-text-day: rgb(50, 83, 84);
+    --footer-text-day: rgb(50, 83, 84);
     --result-interface-day: rgb(95, 158, 160);
     --core-container-day: rgb(240, 248, 255);
     --primary-digits-day: rgb(50, 83, 84);
     --main-digits-day: rgb(95, 158, 160);
-    --active-main-digits-day: rgba(95, 158, 160, 0.8);
-    --active-primary-digits-day: rgba(50, 83, 84, 0.8);
-    --active-equal-day: rgba(255, 99, 71, 0.8);
     /*---------------------------------------------------------*/
     /*dark theme color palette*/
     --main-background-dark: rgb(22, 36, 37);
     --h1-text-dark: rgb(221, 237, 233);
+    --footer-text-dark: rgb(221, 237, 233);
     --result-interface-dark: rgb(50, 83, 84);
     --core-container-dark: rgb(221, 237, 233);
     --primary-digits-dark: rgb(22, 36, 37);
@@ -24,6 +23,9 @@
     --sign: rgb(245, 255, 250);
     --equal-button: rgb(255, 99, 71);
     --scrollbar-ball: rgb(127, 255, 212);
+    --active-main-digits: rgba(95, 158, 160, 0.8);
+    --active-primary-digits: rgba(50, 83, 84, 0.8);
+    --active-equal: rgba(255, 99, 71, 0.8);
 }
 
 * {
@@ -56,7 +58,7 @@ main {
 }
 
 h1 {
-    margin: 15px;
+    margin: 10px;
     color: var(--h1-text-day);
     text-shadow: black 0px 3px 2px;
 }
@@ -117,7 +119,7 @@ h1 {
     grid-template-rows: repeat(3, 1fr);
     gap: 15px;
     background-color: var(--core-container-day);
-    padding:  35px 15px;
+    padding: 30px 15px;
     border-radius: 0 0 15px 15px;
     -webkit-border-radius: 0 0 15px 15px;
     -moz-border-radius: 0 0 15px 15px;
@@ -132,9 +134,10 @@ h1 {
 }
 
 #core-container div button {
+    cursor: pointer;
     outline: none;
     border: 0px;
-    width: 55px;
+    width: 62px;
     font-size: 20px;
     background-color: var(--main-digits-day);
     padding: 17px 0;
@@ -145,7 +148,7 @@ h1 {
 }
 
 #core-container div button:active {
-    background-color: var(--active-main-digits-day);
+    background-color: var(--active-main-digits);
     animation: pressingEffect 0.2s linear;
     -webkit-animation: pressingEffect 0.2s linear;
 }
@@ -156,26 +159,33 @@ h1 {
 }
 
 #core-container #C:active, #core-container #delete:active {
-    background-color: var(--active-primary-digits-day);
+    background-color: var(--active-primary-digits);
 }
 
 #core-container #equal {
-    width: 135px;
+    width: 141px;
     background-color: var(--equal-button);
 }
 
 #core-container #equal:active {
-    background-color: var(--active-equal-day);
+    background-color: var(--active-equal);
+}
+
+footer {
+        padding: 15px 0;
+        font-size: 18px;
+        text-shadow: black 0px 3px 2px;
+        color: var(--footer-text-day);
 }
 
 @keyframes pressingEffect {
     from {
-        transform: translateY(-5px);
-        -webkit-transform: translateY(-5px);
-        -moz-transform: translateY(-5px);
-        -ms-transform: translateY(-5px);
-        -o-transform: translateY(-5px);
-    }
+        transform: translateY(-8px);
+        -webkit-transform: translateY(-8px);
+        -moz-transform: translateY(-8px);
+        -ms-transform: translateY(-8px);
+        -o-transform: translateY(-8px);
+}
     to {
         transform: translateX(0px);
         -webkit-transform: translateX(0px);
@@ -212,5 +222,9 @@ h1 {
 
     #core-container #equal {
         background-color: var(--equal-button);
+    }
+
+    footer {
+        color: var(--footer-text-dark);
     }
 }
