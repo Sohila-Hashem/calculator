@@ -14,7 +14,7 @@ let firstValue;
 let sign;
 let secondValue;
 
-
+/* -----------------------------------------------------------------------------------------------------*/
 // helper functions
 const reset = (rmTotal = false) => {
     if (rmTotal) {
@@ -24,7 +24,6 @@ const reset = (rmTotal = false) => {
     multiSignPressIndicator = 0
     secondValue = 0
     firstValue = 0
-    console.log('reset');
 }
 /* -----------------------------------------------------------------------------------------------------*/
 const removingTechnique = (element, domElement = false) => {
@@ -47,10 +46,8 @@ const removeElementFromResult = () => {
 const checkFirstValue = () => {
     if (firstValue && !currSign.innerText.length) {
         firstValue = removingTechnique(firstValue)
-        console.log('current first Value:', firstValue);
         return true
     } else {
-        console.log('not a first value case');
         return false
     }
 }
@@ -61,10 +58,8 @@ const checkSign = () => {
         currSign.innerText = ''
         sign = ''
         multiSignPressIndicator--
-        console.log('current sign: ', sign);
         return true
     } else {
-        console.log('not a sign case');
         return false
     }
 }
@@ -73,10 +68,8 @@ const checkSign = () => {
 const checkSecondValue = () => {
     if (secondValue && currSign.innerText.length) {
         secondValue = removingTechnique(secondValue)
-        console.log('current second Value:', secondValue);
         return true
     } else {
-        console.log('not a second value case');
         return false
     }
 }
@@ -86,10 +79,8 @@ const checkTotal = () => {
     if (total && !secondValue && !currSign.innerText.length) {
         removeElementFromResult()
         total = result.innerText
-        console.log('current total:', total);
         return true
     } else {
-        console.log('not a total case');
         return false
     }
 }
@@ -111,7 +102,6 @@ const checkTotalToAppendToTotal = (e) => {
         appendOrAdd(result, e, true)
         return true
     } else {
-        console.log('not a total digit case');
         return false
     }
 }
@@ -124,17 +114,14 @@ const checkSignToAddFirstValue = (e) => {
     ) {
         appendOrAdd(result, e)
         firstValue = e.target.innerText
-        console.log('first',1);
         return true
     }
 
     if (!currSign.innerText.length && firstValue) {
         appendOrAdd(result, e, true)
         firstValue += e.target.innerText
-        console.log('first',2);
         return true
     } else {
-        console.log('not a first value digit case');
         return false
     }
 }
@@ -143,7 +130,6 @@ const checkSignToAddFirstValue = (e) => {
 const checkSignToAddSecondValue = (e) => {
     if ((currSign.innerText.length && !secondValue && result.innerText !== '.')) {
         appendOrAdd(result, e)
-        console.log('second',1);
         secondValue = e.target.innerText
         return true
     }
@@ -154,11 +140,9 @@ const checkSignToAddSecondValue = (e) => {
         (total && !currSign.innerText.length)
     ) {
         appendOrAdd(result, e, true)
-        console.log('second',2);
         secondValue += e.target.innerText
         return true
     } else {
-        console.log('not a second value digit case');
         return false
     }
 }
@@ -206,15 +190,12 @@ pointBtn.addEventListener('click', (e) => {
     ) {
         if (!secondValue && currSign.innerText.length) {
             secondValue = e.target.innerText
-            console.log('second value:',secondValue);
         } else if (currSign.innerText.length) {
             secondValue += e.target.innerText
-            console.log('second value:',secondValue);
         } else if (total) {
             total += e.target.innerText
         } else {
             firstValue += e.target.innerText
-            console.log('first value:',secondValue);
         }
         result.innerText += e.target.innerText
     }
@@ -225,11 +206,11 @@ const addNumbers = () => {
     for (let i = 0; i < digits.length; i++) {
         digits[i].addEventListener('click', (e) => {
             if (checkTotalToAppendToTotal(e)) {
-                console.log('total:', total);
+                return
             } else if (checkSignToAddFirstValue(e)) {
-                console.log('first value:', firstValue);
+                return
             } else if (checkSignToAddSecondValue(e)) {
-                console.log('second value:', secondValue);
+                return
             }
         })
     }
@@ -245,8 +226,6 @@ const chooseSign = () => {
                 currSign.innerText = e.target.innerText
                 sign = e.target.innerText
                 multiSignPressIndicator++
-                console.log('sign: ', sign);
-                console.log('multi sign press indicator: ', multiSignPressIndicator);
             }
         })
     }
@@ -264,46 +243,45 @@ const calculateTotal = () => {
             total = Number(total)
             if (sign === '+') {
                 if (total) {
-                    secondValue ? total += Number(secondValue) :  result.innerText = 'Syntax Error'
+                    total += Number(secondValue)
                 } else {
-                    firstValue && secondValue ? total = Number(firstValue) + Number(secondValue) : result.innerText = 'Syntax Error'
+                    total = Number(firstValue) + Number(secondValue)
                 }
             }
 
             if (sign === '-') {
                 if (total) {
-                    secondValue ? total -= Number(secondValue) : result.innerText = 'Syntax Error'
+                    total -= Number(secondValue)
                 } else {
-                    firstValue && secondValue ? total = Number(firstValue) - Number(secondValue) : result.innerText = 'Syntax Error'
+                    total = Number(firstValue) - Number(secondValue)
                 }
             }
 
             if (sign === '/') {
                 if (total) {
-                    secondValue ? total /= Number(secondValue) : result.innerText = 'Syntax Error'
+                    total /= Number(secondValue)
                 } else {
-                    firstValue && secondValue ? total = Number(firstValue) / Number(secondValue) : result.innerText = 'Syntax Error'
+                    total = Number(firstValue) / Number(secondValue)
                 }
             }
 
             if (sign === '*') {
                 if (total) {
-                    secondValue ? total *= Number(secondValue) : result.innerText = 'Syntax Error'
+                    total *= Number(secondValue)
                 } else {
-                    firstValue && secondValue ? total = Number(firstValue) * Number(secondValue) : result.innerText = 'Syntax Error'
+                    total = Number(firstValue) * Number(secondValue)
                 }
             }
 
             if (sign === '%') {
                 if (total) {
-                    secondValue ? total %= Number(secondValue) : result.innerText = 'Syntax Error'
+                    total %= Number(secondValue)
                 } else {
-                    firstValue && secondValue ? total = Number(firstValue) % Number (secondValue) : result.innerText = 'Syntax Error'
+                    total = Number(firstValue) % Number (secondValue)
                 }
             }
             reset()
             result.innerText = total
-            console.log('total: ', total);
         }
     })
 }
