@@ -4,7 +4,7 @@
     --h1-text-day: rgb(50, 83, 84);
     --footer-text-day: rgb(50, 83, 84);
     --result-interface-day: rgb(95, 158, 160);
-    --result-day: rgb(85, 146, 148);
+    --result-day: rgb(91, 150, 152);
     --core-container-day: rgb(240, 248, 255);
     --primary-digits-day: rgb(50, 83, 84);
     --main-digits-day: rgb(95, 158, 160);
@@ -90,7 +90,7 @@ h1 {
     padding: 10px 15px;
     color: var(--result-text);
     caret-color: var(--result-text);
-    background-color: var(--result-dark);
+    background-color: var(--result-day);
 }
 
 #result-interface p::-webkit-scrollbar {
@@ -174,10 +174,9 @@ h1 {
 }
 
 footer {
-        padding: 15px 0;
-        font-size: 18px;
-        text-shadow: black 0px 3px 2px;
-        color: var(--footer-text-day);
+    padding: 15px 0;
+    font-size: 18px;
+    color: var(--footer-text-day);
 }
 
 @keyframes pressingEffect {
@@ -208,6 +207,10 @@ footer {
 
     #result-interface {
         background-color: var(--result-interface-dark);
+    }
+
+    #result-interface p {
+        background-color: var(--result-dark);
     }
 
     #core-container {
