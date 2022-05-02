@@ -6,13 +6,15 @@ const deleteBtn = document.getElementById('delete')
 const equalBtn = document.getElementById('equal')
 const pointBtn = document.getElementById('point')
 const currSign = document.getElementById('current-sign')
+const negativeSign = document.getElementById('negative')
 
 // helper variables
-let multiSignPressIndicator = 0
-let total = 0
-let firstValue;
+let total;
 let sign;
-let secondValue;
+let firstValue = 0;
+let secondValue = 0;
+let finalExpression = []
+let multiSignPressIndicator = 0
 
 // helper functions
 /* -----------------------------------------------------------------------------------------------------*/
@@ -35,21 +37,24 @@ const reset = (rmTotal = false) => {
     if (rmTotal) {
         total = 0
     }
-    currSign.innerText = ''
-    multiSignPressIndicator = 0
     secondValue = 0
+    currSign.innerText = ''
+    sign = ''
     firstValue = 0
 }
 /* -----------------------------------------------------------------------------------------------------*/
 
 const checkPointCases = (e) => {
-    if (!secondValue && currSign.innerText.length) {
+    if (!secondValue && sign) {
         secondValue += e.target.innerText
-    } else if (currSign.innerText.length) {
+    } else if (sign) {
         secondValue += e.target.innerText
-    } else {
+    } else if (!total || total === 0) {
         firstValue += e.target.innerText
+    } else {
+        return false
     }
+    return true
 }
 /* -----------------------------------------------------------------------------------------------------*/
 
@@ -71,7 +76,7 @@ const removeFromResult = () => {
 /* -----------------------------------------------------------------------------------------------------*/
 
 const checkFirstValue = () => {
-    if (firstValue && !currSign.innerText.length) {
+    if (firstValue && !sign) {
         firstValue = removingTechnique(firstValue)
         return true
     } else {
@@ -81,9 +86,8 @@ const checkFirstValue = () => {
 /* -----------------------------------------------------------------------------------------------------*/
 
 const checkSign = () => {
-    if (currSign.innerText.length && !secondValue) {
+    if (sign && !secondValue) {
         currSign.innerText = ''
-        sign = ''
         multiSignPressIndicator--
         return true
     } else {
@@ -93,7 +97,7 @@ const checkSign = () => {
 /* -----------------------------------------------------------------------------------------------------*/
 
 const checkSecondValue = () => {
-    if (secondValue && currSign.innerText.length) {
+    if (secondValue && sign) {
         secondValue = removingTechnique(secondValue)
         return true
     } else {
@@ -103,8 +107,7 @@ const checkSecondValue = () => {
 /* -----------------------------------------------------------------------------------------------------*/
 
 const checkIfTotalToReset = () => {
-    if (total && !currSign.innerText.length) {
-        reset(true)
+    if (total && !sign && !secondValue) {
         result.innerText = '0'
         return true
     } else {
@@ -114,7 +117,7 @@ const checkIfTotalToReset = () => {
 /* -----------------------------------------------------------------------------------------------------*/
 
 const checkIfEverythingIsEmpty = () => {
-    if (!result.innerText.length && !secondValue && !firstValue && !total) {
+    if (!result.innerText.length && !secondValue && !firstValue  && !total && !sign) {
         result.innerText = '0'
         reset(true)
     }
@@ -123,15 +126,19 @@ const checkIfEverythingIsEmpty = () => {
 
 const checkSignToAddFirstValue = (e) => {
     if (
-        (!currSign.innerText.length && !firstValue) ||
-        result.innerText === 'Syntax Error'
+        (
+            !firstValue ||
+            result.innerText === 'Syntax Error' ||
+            result.innerText === total ||
+            firstValue === '0'
+        ) && !sign
     ) {
         appendOrSet(result, e)
         firstValue = e.target.innerText
         return true
     }
 
-    if (!currSign.innerText.length && firstValue) {
+    if (firstValue && !secondValue && !sign) {
         appendOrSet(result, e, true)
         firstValue += e.target.innerText
         return true
@@ -142,23 +149,34 @@ const checkSignToAddFirstValue = (e) => {
 /* -----------------------------------------------------------------------------------------------------*/
 
 const checkSignToAddSecondValue = (e) => {
-    if ((currSign.innerText.length && !secondValue && result.innerText !== '.')) {
+    if ((sign && !secondValue && result.innerText !== '.')) {
         appendOrSet(result, e)
         secondValue = e.target.innerText
+        finalExpression[1] = Number(secondValue) || 0
         return true
     }
 
-    if (
-        (currSign.innerText.length && secondValue) ||
-        (currSign.innerText.length && !secondValue) ||
-        (total && !currSign.innerText.length)
-    ) {
+    if (secondValue) {
         appendOrSet(result, e, true)
         secondValue += e.target.innerText
+        finalExpression[1] = Number(secondValue) || 0
         return true
     } else {
         return false
     }
+}
+/* -----------------------------------------------------------------------------------------------------*/
+
+const addNegativeSign = (e) => {
+    if (!sign && !secondValue && !firstValue&& firstValue[0] !== '-') {
+        firstValue = '-'
+    } else if ((firstValue && sign) || (total && sign)) {
+        secondValue = '-'
+    } else {
+        return false
+    }
+    result.innerText = '-'
+    return true
 }
 /* -----------------------------------------------------------------------------------------------------*/
 //                                        END OF HELPER FUNCTIONS
@@ -175,9 +193,10 @@ deleteBtn.addEventListener('click', (e) => {
         checkFirstValue()
         checkSecondValue()
         removeFromResult()
-    } else if (!total) {
-        checkSign()
     } else if (checkIfTotalToReset()) {
+        reset(true)
+    } else if (checkSign()) {
+        sign = ''
         return
     }
     checkIfEverythingIsEmpty()
@@ -188,11 +207,16 @@ pointBtn.addEventListener('click', (e) => {
     let resultInterface = result.innerText
     if (
         resultInterface !== 'Syntax Error' &&
+        resultInterface !== total &&
         !resultInterface.match(/[.]/)
     ) {
-        checkPointCases(e)
-        appendOrSet(result, e, true)
+        if(checkPointCases(e)) appendOrSet(result, e, true)
     }
+})
+/* -----------------------------------------------------------------------------------------------------*/
+
+negativeSign.addEventListener('click', (e) => {
+    addNegativeSign()
 })
 /* -----------------------------------------------------------------------------------------------------*/
 
@@ -217,6 +241,8 @@ const chooseSign = () => {
             if (result.innerText !== 'Syntax Error') {
                 currSign.innerText = e.target.innerText
                 sign = e.target.innerText
+                multiSignPressIndicator++
+                finalExpression[0] = sign || false
             }
         })
     }
@@ -225,70 +251,51 @@ const chooseSign = () => {
 chooseSign()
 /* -----------------------------------------------------------------------------------------------------*/
 
+const calcBasedOnSign = () => {
+    secondValue = Number(secondValue)
+    firstValue = Number(firstValue)
+    if ((total || total === 0) && !firstValue) {
+        switch (finalExpression[0]) {
+            case '+':
+                total += (secondValue || finalExpression[1])
+                break
+            case '-':
+                total -= (secondValue || finalExpression[1])
+                break
+            case '*':
+                total *= (secondValue || finalExpression[1])
+                break
+            case '/':
+                total /= (secondValue || finalExpression[1])
+                break
+        }
+    } else {
+        switch (sign) {
+            case '+':
+                total = (firstValue || displayErrorMessage()) + (secondValue || displayErrorMessage())
+                break
+            case '-':
+                total = (firstValue || displayErrorMessage()) - (secondValue || displayErrorMessage())
+                break
+            case '*':
+                total = (firstValue || displayErrorMessage()) * (secondValue || displayErrorMessage())
+                break
+            case '/':
+                total = (firstValue || displayErrorMessage()) / (secondValue || displayErrorMessage())
+                break
+        }
+    }
+}
+
 const calculateTotal = () => {
     equalBtn.addEventListener('click', (e) => {
-        total = Number(total)
-        if (sign === '+') {
-            if (total) {
-                secondValue ?
-                total += Number(secondValue) :
-                displayErrorMessage()
-            } else {
-                firstValue && secondValue ?
-                total = Number(firstValue) + Number(secondValue):
-                displayErrorMessage()
-            }
-        }
-
-        if (sign === '-') {
-            if (total) {
-                secondValue ?
-                total -= Number(secondValue) :
-                displayErrorMessage()
-            } else {
-                firstValue && secondValue ?
-                total = Number(firstValue) - Number(secondValue) :
-                displayErrorMessage()
-            }
-        }
-
-        if (sign === '/') {
-            if (total) {
-                secondValue ?
-                total /= Number(secondValue) :
-                displayErrorMessage()
-            } else {
-                firstValue && secondValue ?
-                total = Number(firstValue) / Number(secondValue) :
-                displayErrorMessage()
-            }
-        }
-
-        if (sign === '*') {
-            if (total) {
-                secondValue ?
-                total *= Number(secondValue) :
-                displayErrorMessage()
-            } else {
-                firstValue && secondValue ?
-                total = Number(firstValue) * Number(secondValue) :
-                displayErrorMessage()
-            }
-        }
-
-        if (sign === '%') {
-            if (total) {
-                secondValue ?
-                total %= Number(secondValue) :
-                displayErrorMessage()
-            } else {
-                firstValue && secondValue ?
-                total = Number(firstValue) % Number (secondValue) :
-                displayErrorMessage()
-            }
+        if (finalExpression.length) {
+            calcBasedOnSign()
+            result.innerText !== 'Syntax Error'? result.innerText = total : true
+        } else {
+            result.innerText = '0'
         }
         reset()
-        result.innerText !== 'Syntax Error'? result.innerText = total : true
     })
 }
 
