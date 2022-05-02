@@ -286,6 +286,7 @@ const calcBasedOnSign = () => {
         }
     }
 }
+/* -----------------------------------------------------------------------------------------------------*/
 
 const calculateTotal = () => {
     equalBtn.addEventListener('click', (e) => {
