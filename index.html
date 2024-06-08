@@ -1,63 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#5f9ea0">
-    <meta name="theme-color" content="#162425" media="(prefers-color-scheme: dark)">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="public/calc.css">
-    <title>calculator</title>
-</head>
-<body>
-    <h1>Calculator</h1>
-    <main>
-        <section id="result-interface">
-            <p id="calc-result">0</p>
-            <span id="current-sign"></span>
-        </section>
-        <section id="core-container">
-            <div id="helpers">
-                <button id="C">C</button>
-                <button id="delete">del</button>
-                <button id="equal">=</button>
-            </div>
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="theme-color" content="#5f9ea0" />
+		<meta name="theme-color" content="#162425" media="(prefers-color-scheme: dark)" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="./style.css" />
+		<title>calculator</title>
+	</head>
+	<body>
+		<h1>Calculator</h1>
+		<main>
+			<section id="result-interface">
+				<p id="calc-result">0</p>
+				<span id="current-sign"></span>
+			</section>
+			<section id="core-container">
+				<div id="helpers">
+					<button id="C">C</button>
+					<button id="delete">del</button>
+					<button id="equal">=</button>
+				</div>
 
-            <div>
-                <button class="digit">7</button>
-                <button class="digit">8</button>
-                <button class="digit">9</button>
-                <button class="operation">*</button>
-            </div>
+				<div>
+					<button class="digit">7</button>
+					<button class="digit">8</button>
+					<button class="digit">9</button>
+					<button class="operation">*</button>
+				</div>
 
-            <div>
-                <button class="digit">4</button>
-                <button class="digit">5</button>
-                <button class="digit">6</button>
-                <button class="operation">-</button>
-            </div>
+				<div>
+					<button class="digit">4</button>
+					<button class="digit">5</button>
+					<button class="digit">6</button>
+					<button class="operation">-</button>
+				</div>
 
-            <div>
-                <button class="digit">1</button>
-                <button class="digit">2</button>
-                <button class="digit">3</button>
-                <button class="operation">+</button>
-            </div>
+				<div>
+					<button class="digit">1</button>
+					<button class="digit">2</button>
+					<button class="digit">3</button>
+					<button class="operation">+</button>
+				</div>
 
-            <div>
-                <button id="point">.</button>
-                <button class="digit">0</button>
-                <button id="negative" >+/-</button>
-                <button class="operation">/</button>
-            </div>
-        </section>
-        <footer>
-            <p>&copy; Sto 2022</p>
-        </footer>
-    </main>
-    <script src="public/app.js"></script>
-</body>
+				<div>
+					<button id="point">.</button>
+					<button class="digit">0</button>
+					<button id="negative">+/-</button>
+					<button class="operation">/</button>
+				</div>
+			</section>
+			<footer>
+				<p>&copy; Sto 2022</p>
+			</footer>
+		</main>
+		<script src="./app.js"></script>
+	</body>
 </html>
